@@ -1,0 +1,931 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uykusuz Kütüphane - Online Ders Platformu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .header {
+            background: #2c5aa0;
+            padding: 12px 0;
+            border-bottom: 2px solid #1a4480;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .admin-login-btn {
+            background: #ff6b35;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        .admin-login-btn:hover {
+            background: #e55a2b;
+        }
+
+        .admin-panel-info {
+            color: white;
+            font-size: 11px;
+        }
+
+        .admin-panel-info a {
+            color: #ffcc00;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .nav {
+            background: #e6e6e6;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+
+        .nav li {
+            border-right: 1px solid #ccc;
+        }
+
+        .nav a {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 12px;
+            background: #f0f0f0;
+            border-top: 1px solid #fff;
+        }
+
+        .nav a:hover {
+            background: #ddd;
+        }
+
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            font-size: 11px;
+        }
+
+        .sidebar h3 {
+            background: #2c5aa0;
+            color: white;
+            padding: 8px 12px;
+            margin: 0;
+            font-size: 13px;
+            border-bottom: 1px solid #1a4480;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin: 12px 0;
+            padding: 0 12px;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+            padding-left: 12px;
+            position: relative;
+        }
+
+        .sidebar li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c5aa0;
+        }
+
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        .sidebar a:hover {
+            color: #2c5aa0;
+            text-decoration: underline;
+        }
+
+        .content {
+            flex: 1;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        .welcome-box {
+            background: #f0f8ff;
+            border: 1px solid #2c5aa0;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .welcome-box h1 {
+            color: #2c5aa0;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .welcome-box p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .admin-section {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+
+        .section-header {
+            background: #e6e6e6;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 13px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .admin-content {
+            padding: 15px;
+        }
+
+        .admin-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 11px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            font-size: 11px;
+            font-family: Verdana, Arial, sans-serif;
+        }
+
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 6px 15px;
+            border: 1px solid #ccc;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-size: 11px;
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+            border-color: #1a4480;
+        }
+
+        .btn-primary:hover {
+            background: #1a4480;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+            border-color: #1e7e34;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            border-color: #c82333;
+        }
+
+        .file-list {
+            border: 1px solid #ccc;
+            background: white;
+        }
+
+        .file-list-header {
+            background: #e6e6e6;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 11px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .file-item {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-item:hover {
+            background: #f8f8f8;
+        }
+
+        .file-actions {
+            white-space: nowrap;
+        }
+
+        .footer {
+            background: #e6e6e6;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-form {
+            background: white;
+            border: 2px solid #2c5aa0;
+            padding: 25px;
+            width: 350px;
+            position: relative;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #2c5aa0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .status-message {
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid;
+            font-size: 11px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .public-content {
+            text-align: center;
+            padding: 20px 20px; /* Adjusted padding */
+            color: #666;
+        }
+
+        .public-content h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c5aa0;
+        }
+
+        .public-content p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .download-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .download-item {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div id="loginModal" class="login-modal hidden">
+        <div class="login-form">
+            <button class="close-btn" onclick="closeLogin()">&times;</button>
+            <h2>🔒 Yönetici Giriş</h2>
+            <div id="loginError"></div>
+            <div class="form-group">
+                <label>Kullanıcı Adı:</label>
+                <input type="text" id="username">
+            </div>
+            <div class="form-group">
+                <label>Şifre:</label>
+                <input type="password" id="password">
+            </div>
+            <button class="btn btn-primary" onclick="login()" style="width: 100%;">Giriş Yap</button>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">📚 Uykusuz Kütüphane</div>
+                <div id="headerRight">
+                    <button class="admin-login-btn" onclick="showLogin()">Yönetici Giriş</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="#" onclick="showPublicSection('home')">Ana Sayfa</a></li>
+                <li><a href="#" onclick="showPublicSection('downloads')">İndirilenler</a></li>
+                <li><a href="#" onclick="showPublicSection('about')">Hakkında</a></li>
+                <li><a href="#" onclick="showPublicSection('contact')">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <h3>📁 Kategoriler</h3>
+                <ul>
+                    <li><a href="#">Matematik</a></li>
+                    <li><a href="#">Fizik</a></li>
+                    <li><a href="#">Kimya</a></li>
+                    <li><a href="#">Biyoloji</a></li>
+                    <li><a href="#">Tarih</a></li>
+                    <li><a href="#">Coğrafya</a></li>
+                    <li><a href="#">Edebiyat</a></li>
+                    <li><a href="#">İngilizce</a></li>
+                </ul>
+
+                <h3>📊 Sınıflar</h3>
+                <ul>
+                    <li><a href="#">9. Sınıf</a></li>
+                    <li><a href="#">10. Sınıf</a></li>
+                    <li><a href="#">11. Sınıf</a></li>
+                    <li><a href="#">12. Sınıf</a></li>
+                    <li><a href="#">YKS</a></li>
+                </ul>
+            </aside>
+
+            <main class="content">
+                <div id="publicView">
+                    <div id="homeSection">
+                        <div class="welcome-box">
+                            <h1>🎓 Uykusuz Kütüphane'ye Hoş Geldiniz</h1>
+                            <p>Online ders çalışma platformumuzda binlerce eğitim materyaline ücretsiz erişim sağlayabilirsiniz.</p>
+                        </div>
+                        
+                        <div class="public-content">
+                            <h2>Platform Hakkında</h2>
+                            <p>Uykusuz Kütüphane, öğrencilerin eğitim hayatlarını desteklemek amacıyla kurulmuş ücretsiz bir platformdur.</p>
+                            <p>PDF kitaplar, testler ve video dersler ile öğrenme sürecinizi destekliyoruz.</p>
+                        </div>
+
+                        <div class="download-section">
+                            <div class="section-header">📚 Mevcut İçerikler</div>
+                            <div id="publicHomeDownloads">
+                                <div style="padding: 20px; text-align: center; color: #666;">
+                                    Henüz içerik yüklenmedi. Yönetici panelinden içerik ekleyebilirsiniz.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="downloadsSection" class="hidden">
+                        <div class="welcome-box">
+                            <h1>📥 İndirme Arşivi</h1>
+                            <p>Daha önce yüklenmiş tüm materyallere buradan erişebilirsiniz.</p>
+                        </div>
+                        <div class="download-section">
+                            <div class="section-header">Tüm Yüklenen İçerikler</div>
+                            <div id="publicDownloads">
+                                <div style="padding: 20px; text-align: center; color: #666;">
+                                    Henüz içerik yüklenmedi.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="aboutSection" class="hidden">
+                        <div class="welcome-box">
+                            <h1>ℹ️ Hakkımızda</h1>
+                            <p>Uykusuz Kütüphane eğitim platformu hakkında bilgiler.</p>
+                        </div>
+                        <div class="public-content">
+                            <h2>Misyonumuz</h2>
+                            <p>Uykusuz Kütüphane olarak misyonumuz, öğrencilere kaliteli ve ücretsiz eğitim materyalleri sunarak, akademik başarılarına katkıda bulunmak ve öğrenmeyi daha erişilebilir kılmaktır. Her öğrencinin potansiyeline ulaşabilmesi için gerekli kaynakları sağlamayı hedefliyoruz.</p>
+
+                            <h2>Vizyonumuz</h2>
+                            <p>Türkiye'nin dört bir yanındaki öğrencilerin ilk tercihi olan, sürekli gelişen ve güncel kalan, yenilikçi bir online eğitim platformu olmaktır. Teknolojiyi eğitimle buluşturarak öğrenme deneyimini zenginleştirmeyi amaçlıyoruz.</p>
+
+                            <h2>Değerlerimiz</h2>
+                            <ul>
+                                <li><strong>Erişilebilirlik:</strong> Herkes için ücretsiz ve kolay ulaşılabilir eğitim.</li>
+                                <li><strong>Kalite:</strong> Alanında uzman kişiler tarafından seçilmiş güncel ve doğru içerik.</li>
+                                <li><strong>Destek:</strong> Öğrencilerin ihtiyaçlarına duyarlı, çözüm odaklı yaklaşım.</li>
+                                <li><strong>Sürekli Gelişim:</strong> Eğitimin ve teknolojinin yeniliklerini takip ederek platformu sürekli iyileştirmek.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="contactSection" class="hidden">
+                        <div class="welcome-box">
+                            <h1>📧 İletişim</h1>
+                            <p>Bizimle iletişime geçmek için aşağıdaki bilgileri kullanabilirsiniz.</p>
+                        </div>
+                        <div class="public-content">
+                            <h2>Bize Ulaşın</h2>
+                            <p>Eğitim materyalleri, iş birlikleri veya diğer konular hakkında her türlü soru ve öneriniz için bizimle iletişime geçmekten çekinmeyin.</p>
+                            <p><strong>E-posta:</strong> info@uykusuzkutuphane.com</p>
+                            <p><strong>Telefon:</strong> +90 555 123 45 67</p>
+                            <p><strong>Adres:</strong> Örnek Mahallesi, Bilgi Sokak No:123, Eğitim Şehri, Türkiye</p>
+                            <p>Sosyal Medya Hesaplarımız:</p>
+                            <p>
+                                <a href="#" target="_blank">Facebook</a> | 
+                                <a href="#" target="_blank">Twitter</a> | 
+                                <a href="#" target="_blank">Instagram</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="adminView" class="hidden">
+                    <div id="dashboard" class="admin-section">
+                        <div class="welcome-box">
+                            <h1>🎓 Yönetici Paneli</h1>
+                            <p>Uykusuz Kütüphane içerik yönetim sistemi</p>
+                        </div>
+                        
+                        <div class="admin-section">
+                            <div class="section-header">📊 Site İstatistikleri</div>
+                            <div class="admin-content">
+                                <p>Toplam PDF: <strong id="pdfCount">0</strong></p>
+                                <p>Toplam Test: <strong id="testCount">0</strong></p>
+                                <p>Toplam Video: <strong id="videoCount">0</strong></p>
+                                <p>Son Güncelleme: <strong id="lastUpdate">Henüz yükleme yapılmadı</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="upload" class="admin-section hidden">
+                        <div class="section-header">📤 Yeni Dosya Linki Ekle</div>
+                        <div class="admin-content">
+                            <div id="uploadMessage"></div>
+                            <form class="admin-form" onsubmit="uploadFile(event)">
+                                <div class="form-group">
+                                    <label>Dosya Türü:</label>
+                                    <select id="fileType">
+                                        <option value="pdf">PDF Kitap</option>
+                                        <option value="test">Test</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Başlık:</label>
+                                    <input type="text" id="fileTitle" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kategori:</label>
+                                    <select id="fileCategory">
+                                        <option value="matematik">Matematik</option>
+                                        <option value="fizik">Fizik</option>
+                                        <option value="kimya">Kimya</option>
+                                        <option value="biyoloji">Biyoloji</option>
+                                        <option value="tarih">Tarih</option>
+                                        <option value="cografya">Coğrafya</option>
+                                        <option value="edebiyat">Edebiyat</option>
+                                        <option value="ingilizce">İngilizce</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sınıf:</label>
+                                    <select id="fileGrade">
+                                        <option value="9">9. Sınıf</option>
+                                        <option value="10">10. Sınıf</option>
+                                        <option value="11">11. Sınıf</option>
+                                        <option value="12">12. Sınıf</option>
+                                        <option value="yks">YKS</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Açıklama:</label>
+                                    <textarea id="fileDescription"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dosya Linki (URL):</label>
+                                    <input type="url" id="fileLink" placeholder="https://example.com/dosya.pdf" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Ekle</button>
+                                <button type="reset" class="btn">Temizle</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="manage" class="admin-section hidden">
+                        <div class="section-header">📋 Dosya Yönetimi</div>
+                        <div class="admin-content">
+                            <div class="file-list">
+                                <div class="file-list-header">Yüklenen Dosyalar</div>
+                                <div id="fileListContent">
+                                    <div style="padding: 20px; text-align: center; color: #666; font-size: 11px;">
+                                        Henüz dosya yüklenmedi
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings" class="admin-section hidden">
+                        <div class="section-header">⚙️ Site Ayarları</div>
+                        <div class="admin-content">
+                            <form class="admin-form">
+                                <div class="form-group">
+                                    <label>Site Başlığı:</label>
+                                    <input type="text" value="Uykusuz Kütüphane">
+                                </div>
+                                <div class="form-group">
+                                    <label>Site Açıklaması:</label>
+                                    <textarea>Online ders çalışma platformu</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Admin Email:</label>
+                                    <input type="email" value="admin@uykusuz.com">
+                                </div>
+                                <button type="button" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="admin-section" style="margin-top: 20px;">
+                        <div class="section-header">🔧 Yönetici Menü</div>
+                        <div class="admin-content">
+                            <button class="btn btn-primary" onclick="showAdminSection('dashboard')">Kontrol Paneli</button>
+                            <button class="btn btn-primary" onclick="showAdminSection('upload')">Dosya Linki Ekle</button>
+                            <button class="btn btn-primary" onclick="showAdminSection('manage')">Dosya Yönet</button>
+                            <button class="btn btn-primary" onclick="showAdminSection('settings')">Ayarlar</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Uykusuz Kütüphane - Online Ders Çalışma Platformu</p>
+        </div>
+    </footer>
+
+    <script>
+        let uploadedFiles = []; // This will store objects with link, not actual files
+        let isAdmin = false;
+        const adminPassword = 'uykusuzkutuphanesi248691';
+
+        function showLogin() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('username').focus();
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginError').innerHTML = '';
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'admin' && password === adminPassword) {
+                isAdmin = true;
+                document.getElementById('publicView').classList.add('hidden');
+                document.getElementById('adminView').classList.remove('hidden');
+                document.getElementById('headerRight').innerHTML = `
+                    <div class="admin-panel-info">
+                        Hoş geldin Admin |
+                        <a href="#" onclick="logout()">Çıkış</a>
+                    </div>
+                `;
+                showAdminSection('dashboard');
+                closeLogin();
+            } else {
+                showLoginError('Hatalı kullanıcı adı veya şifre!');
+            }
+        }
+
+        function showLoginError(message) {
+            document.getElementById('loginError').innerHTML = `<div class="status-message error">${message}</div>`;
+        }
+
+        function logout() {
+            isAdmin = false;
+            document.getElementById('publicView').classList.remove('hidden');
+            document.getElementById('adminView').classList.add('hidden');
+            document.getElementById('headerRight').innerHTML = `
+                <button class="admin-login-btn" onclick="showLogin()">Yönetici Giriş</button>
+            `;
+            showPublicSection('home');
+        }
+
+        function showPublicSection(section) {
+            const sections = ['homeSection', 'downloadsSection', 'aboutSection', 'contactSection'];
+            sections.forEach(s => {
+                document.getElementById(s).classList.add('hidden');
+            });
+            document.getElementById(section + 'Section').classList.remove('hidden');
+
+            if (section === 'downloads') {
+                updatePublicDownloads(); // Refresh downloads section if navigated to
+            }
+        }
+
+        function showAdminSection(section) {
+            const sections = ['dashboard', 'upload', 'manage', 'settings'];
+            sections.forEach(s => {
+                document.getElementById(s).classList.add('hidden');
+            });
+            document.getElementById(section).classList.remove('hidden');
+            
+            if (section === 'manage') {
+                updateFileList();
+            }
+            if (section === 'dashboard') {
+                updateStats(); // Update stats when dashboard is shown
+            }
+        }
+
+        function uploadFile(event) {
+            event.preventDefault();
+            
+            const fileType = document.getElementById('fileType').value;
+            const title = document.getElementById('fileTitle').value;
+            const category = document.getElementById('fileCategory').value;
+            const grade = document.getElementById('fileGrade').value;
+            const description = document.getElementById('fileDescription').value;
+            const fileLink = document.getElementById('fileLink').value; // Get the link value
+            
+            if (!fileLink) {
+                showMessage('Lütfen bir dosya linki girin!', 'error');
+                return;
+            }
+            
+            const file = {
+                id: Date.now(),
+                type: fileType,
+                title: title,
+                category: category,
+                grade: grade,
+                description: description,
+                fileLink: fileLink, // Store the link
+                uploadDate: new Date().toLocaleDateString('tr-TR')
+            };
+            
+            uploadedFiles.push(file);
+            updateStats();
+            updatePublicDownloads(); // Update both public sections
+            updatePublicHomeDownloads();
+            showMessage('Dosya linki başarıyla eklendi!', 'success');
+            
+            document.querySelector('.admin-form').reset();
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('uploadMessage');
+            messageDiv.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 3000);
+        }
+
+        function updateStats() {
+            const pdfCount = uploadedFiles.filter(f => f.type === 'pdf').length;
+            const testCount = uploadedFiles.filter(f => f.type === 'test').length;
+            const videoCount = uploadedFiles.filter(f => f.type === 'video').length; // New: Video count
+            
+            document.getElementById('pdfCount').textContent = pdfCount;
+            document.getElementById('testCount').textContent = testCount;
+            document.getElementById('videoCount').textContent = videoCount; // Update video count
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('tr-TR');
+        }
+
+        function updateFileList() {
+            const listContent = document.getElementById('fileListContent');
+            
+            if (uploadedFiles.length === 0) {
+                listContent.innerHTML = '<div style="padding: 20px; text-align: center; color: #666; font-size: 11px;">Henüz dosya yüklenmedi</div>';
+                return;
+            }
+            
+            let html = '';
+            uploadedFiles.forEach(file => {
+                html += `
+                    <div class="file-item">
+                        <div>
+                            <strong>${file.title}</strong><br>
+                            <span style="color: #666;">${file.category} - ${file.grade}. Sınıf | ${file.uploadDate}</span><br>
+                            <a href="${file.fileLink}" target="_blank" style="font-size: 10px; color: #2c5aa0;">${file.fileLink}</a>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn btn-danger" onclick="deleteFile(${file.id})">Sil</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            listContent.innerHTML = html;
+        }
+
+        function updatePublicDownloads() {
+            const publicDownloadsDiv = document.getElementById('publicDownloads');
+            
+            if (uploadedFiles.length === 0) {
+                publicDownloadsDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Henüz içerik yüklenmedi.</div>';
+                return;
+            }
+            
+            let html = '';
+            uploadedFiles.forEach(file => {
+                html += `
+                    <div class="download-item">
+                        <div>
+                            <strong>${file.title}</strong><br>
+                            <span style="color: #666; font-size: 11px;">${file.category} - ${file.grade}. Sınıf | ${file.type.toUpperCase()}</span>
+                        </div>
+                        <a href="${file.fileLink}" target="_blank" class="download-btn">İndir</a>
+                    </div>
+                `;
+            });
+            
+            publicDownloadsDiv.innerHTML = html;
+        }
+
+        function updatePublicHomeDownloads() {
+            const publicHomeDownloadsDiv = document.getElementById('publicHomeDownloads');
+            
+            if (uploadedFiles.length === 0) {
+                publicHomeDownloadsDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Henüz içerik yüklenmedi.</div>';
+                return;
+            }
+            
+            // Display a limited number of files on the home page for brevity
+            const displayFiles = uploadedFiles.slice(0, 5); // Show first 5 items
+            
+            let html = '';
+            displayFiles.forEach(file => {
+                html += `
+                    <div class="download-item">
+                        <div>
+                            <strong>${file.title}</strong><br>
+                            <span style="color: #666; font-size: 11px;">${file.category} - ${file.grade}. Sınıf | ${file.type.toUpperCase()}</span>
+                        </div>
+                        <a href="${file.fileLink}" target="_blank" class="download-btn">İndir</a>
+                    </div>
+                `;
+            });
+
+            if (uploadedFiles.length > 5) {
+                html += `<div style="text-align: right; padding: 10px 0;">
+                            <a href="#" onclick="showPublicSection('downloads')" style="color: #2c5aa0; text-decoration: none; font-size: 11px;">Tümünü Gör &raquo;</a>
+                         </div>`;
+            }
+            
+            publicHomeDownloadsDiv.innerHTML = html;
+        }
+
+
+        function deleteFile(id) {
+            if (confirm('Bu dosyayı silmek istediğinizden emin misiniz?')) {
+                uploadedFiles = uploadedFiles.filter(f => f.id !== id);
+                updateFileList();
+                updateStats();
+                updatePublicDownloads();
+                updatePublicHomeDownloads();
+            }
+        }
+
+        // Enter tuşu ile giriş
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !document.getElementById('loginModal').classList.contains('hidden')) {
+                login();
+            }
+        });
+
+        // Modal dışına tıklayınca kapatma
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLogin();
+            }
+        });
+
+        // Initial setup
+        showPublicSection('home');
+        updatePublicDownloads(); // Initial call to populate downloads section
+        updatePublicHomeDownloads(); // Initial call to populate home downloads section
+        updateStats(); // Initial call to update stats (will be 0 if no files)
+    </script>
+</body>
+</html>
